@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#262a25" />
+    <meta name="description" content="凡人残图：每周自动整理正片更新、剧情坐标、优质解析与二创内容，为道友补全一张可探索的追番地图。" />
+    <meta property="og:title" content="凡人残图 · 每周一片，循迹入仙途" />
+    <meta property="og:description" content="正片、剧情、解析、二创与下集预测，一张残图全部寻到。" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <title>凡人残图 · 道友寻番指南</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="paper-noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="凡人残图首页">
+        <span class="brand-seal" aria-hidden="true">凡<br />图</span>
+        <span class="brand-copy">
+          <strong>凡人残图</strong>
+          <small>道友寻番指南</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="主导航">
+        <a class="active" href="#map">本周残图</a>
+        <a href="#route">寻宝路线</a>
+        <a href="#prediction">问卦台</a>
+      </nav>
+      <div class="header-actions">
+        <button class="text-button" id="share-map" type="button">分享残图</button>
+        <button class="bag-button" id="open-bag" type="button" aria-label="查看储物袋">
+          储物袋 <span id="bag-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="overline"><span></span> 每周一片 · 循迹入仙途</p>
+          <h1 id="hero-title">正片散落四方，<br />此图为你<span>逐片寻回</span>。</h1>
+          <p class="hero-description">
+            每周自动整理正片更新、剧情坐标、优质解析与二创内容。<br />不搬运作品，只为每一次创作指路。
+          </p>
+          <div class="hero-buttons">
+            <a class="primary-button" href="#map">领取本周残图</a>
+            <button class="secondary-button" id="subscribe-button" type="button">设下周六传音</button>
+          </div>
+          <p class="source-note"><span class="pulse"></span> 采集器巡检中 · 仅索引公开内容与原始链接</p>
+        </div>
+
+        <aside class="next-update" aria-label="下次更新倒计时">
+          <p>下一片残图现世</p>
+          <div class="countdown" aria-live="polite">
+            <span><b id="count-days">00</b><small>日</small></span>
+            <i>:</i>
+            <span><b id="count-hours">00</b><small>时</small></span>
+            <i>:</i>
+            <span><b id="count-minutes">00</b><small>分</small></span>
+            <i>:</i>
+            <span><b id="count-seconds">00</b><small>秒</small></span>
+          </div>
+          <div class="airtime"><span>每周六</span><strong>11:00</strong><em>正片更新</em></div>
+        </aside>
+      </section>
+
+      <section class="map-section" id="map" aria-labelledby="map-title">
+        <div class="map-topbar">
+          <div>
+            <p class="section-kicker">CURRENT FRAGMENT · DEMO DATA</p>
+            <h2 id="map-title">天南卷 · 本周行迹</h2>
+          </div>
+          <div class="map-legend" aria-label="图例">
+            <span><i class="dot dot-red"></i>本周正片</span>
+            <span><i class="dot dot-green"></i>剧情节点</span>
+            <span><i class="dot dot-gold"></i>解析二创</span>
+          </div>
+        </div>
+
+        <div class="map-canvas">
+          <canvas id="procedural-map" aria-hidden="true"></canvas>
+          <div class="map-vignette" aria-hidden="true"></div>
+          <div class="map-title-stamp" aria-hidden="true">
+            <small>癸未年 · 夏</small>
+            <strong>天南寻迹图</strong>
+          </div>
+
+          <button class="map-marker marker-episode active" data-node="episode" type="button" aria-label="查看本周正片节点">
+            <span class="marker-pin">正片</span><b>本周新章</b>
+          </button>
+          <button class="map-marker marker-story" data-node="story" type="button" aria-label="查看剧情节点">
+            <span class="marker-pin">行迹</span><b>主线推进</b>
+          </button>
+          <button class="map-marker marker-analysis" data-node="analysis" type="button" aria-label="查看解析内容节点">
+            <span class="marker-pin">解</span><b>道友说书</b>
+          </button>
+          <button class="map-marker marker-remix" data-node="remix" type="button" aria-label="查看二创内容节点">
+            <span class="marker-pin">创</span><b>灵感集市</b>
+          </button>
+
+          <div class="map-node-card" id="map-node-card">
+            <p id="node-eyebrow">本周残图 · 正片节点</p>
+            <h3 id="node-title">新章已现世</h3>
+            <p id="node-copy">周六 11:00 正片节点已标记。沿图向东，可继续找到本集剧情坐标与道友解析。</p>
+            <button id="node-action" type="button">查看本周路线 <span>→</span></button>
+          </div>
+
+          <div class="map-coordinate">FRAGMENT / TN-00167 · 数据为产品演示</div>
+        </div>
+
+        <div class="map-stats">
+          <article><strong>01</strong><span>正片入口<br /><small>原址直达</small></span></article>
+          <article><strong>08</strong><span>深度解析<br /><small>自动去重</small></span></article>
+          <article><strong>24</strong><span>本周二创<br /><small>按热度巡检</small></span></article>
+          <article><strong>06</strong><span>剧情坐标<br /><small>人物 · 法宝 · 地点</small></span></article>
+        </div>
+      </section>
+
+      <section class="route-section" id="route" aria-labelledby="route-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">WEEKLY TRAIL</p>
+            <h2 id="route-title">本周寻宝路线</h2>
+          </div>
+          <div class="content-tabs" role="tablist" aria-label="内容筛选">
+            <button class="active" data-filter="all" role="tab" aria-selected="true" type="button">全部</button>
+            <button data-filter="analysis" role="tab" aria-selected="false" type="button">解析</button>
+            <button data-filter="remix" role="tab" aria-selected="false" type="button">二创</button>
+          </div>
+        </div>
+
+        <div class="trail-line" aria-label="建议浏览顺序">
+          <article class="trail-step done"><b>壹</b><div><strong>正片现世</strong><span>周六 11:00 · 已巡检</span></div></article>
+          <i aria-hidden="true"></i>
+          <article class="trail-step current"><b>贰</b><div><strong>剧情辨位</strong><span>人物与事件已归档</span></div></article>
+          <i aria-hidden="true"></i>
+          <article class="trail-step"><b>叁</b><div><strong>百家论道</strong><span>解析与二创持续补图</span></div></article>
+        </div>
+
+        <div class="content-grid" id="content-grid">
+          <article class="content-card featured" data-kind="analysis">
+            <div class="card-index">解析 · 壹</div>
+            <div class="card-ink card-ink-one" aria-hidden="true"><span></span></div>
+            <div class="card-body">
+              <div class="card-meta"><span>原著对照</span><time>12 分钟前</time></div>
+              <h3>一集看懂本周主线：三条伏笔从何处汇合</h3>
+              <p>从人物动机、法宝线索与原著章节三个方向，为本周剧情标出阅读坐标。</p>
+              <div class="card-footer"><span>道友 · 墨山客</span><button class="save-button" data-save="analysis-1" type="button">收入储物袋</button></div>
+            </div>
+          </article>
+
+          <article class="content-card" data-kind="analysis">
+            <div class="card-index">解析 · 贰</div>
+            <div class="card-ink card-ink-two" aria-hidden="true"><span></span></div>
+            <div class="card-body">
+              <div class="card-meta"><span>制作考据</span><time>35 分钟前</time></div>
+              <h3>镜头里的山河：本集场景与气氛为何不同</h3>
+              <p>从场景色调和动作调度出发，拆解这一集容易被忽略的制作细节。</p>
+              <div class="card-footer"><span>道友 · 千机楼</span><button class="save-button" data-save="analysis-2" type="button">收入储物袋</button></div>
+            </div>
+          </article>
+
+          <article class="content-card" data-kind="remix">
+            <div class="card-index">二创 · 壹</div>
+            <div class="card-ink card-ink-three" aria-hidden="true"><span></span></div>
+            <div class="card-body">
+              <div class="card-meta"><span>本周高热</span><time>1 小时前</time></div>
+              <h3>如果把本周名场面画成一页古籍残卷</h3>
+              <p>本周灵感集市热度上升最快的创作，点击将前往创作者原始发布页。</p>
+              <div class="card-footer"><span>道友 · 青简</span><button class="save-button" data-save="remix-1" type="button">收入储物袋</button></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="collector-status" aria-label="采集器运行状态">
+          <span class="collector-icon">巡</span>
+          <div><strong>寻迹傀儡正在巡检</strong><small>上次完成：刚刚 · 下次巡检：10 分钟后</small></div>
+          <ul><li><b>6</b> 个公开来源</li><li><b>42</b> 条链接已去重</li><li><b>0</b> 条正文被搬运</li></ul>
+        </div>
+      </section>
+
+      <section class="prediction-section" id="prediction" aria-labelledby="prediction-title">
+        <div class="prediction-copy">
+          <p class="section-kicker">WEEKLY DIVINATION</p>
+          <h2 id="prediction-title">下集问卦</h2>
+          <p>在正片更新前留下你的判断。这里只记录道友的洞察，不充值、不能提现，也不兑换任何有价物。</p>
+          <div class="prediction-meta"><span>已有 <b id="vote-total">1,286</b> 位道友落子</span><span>周六 10:55 封盘</span></div>
+        </div>
+
+        <form class="prediction-card" id="prediction-form">
+          <fieldset>
+            <legend>下集最先推进的是哪一条线索？</legend>
+            <label class="prediction-option">
+              <input type="radio" name="prediction" value="treasure" />
+              <span><b>法宝异动</b><small>神识占比</small></span><em data-percent="treasure">46%</em>
+              <i><u data-bar="treasure" style="--vote-width: 46%"></u></i>
+            </label>
+            <label class="prediction-option">
+              <input type="radio" name="prediction" value="old-friend" />
+              <span><b>故人重逢</b><small>神识占比</small></span><em data-percent="old-friend">34%</em>
+              <i><u data-bar="old-friend" style="--vote-width: 34%"></u></i>
+            </label>
+            <label class="prediction-option">
+              <input type="radio" name="prediction" value="new-place" />
+              <span><b>新地界开启</b><small>神识占比</small></span><em data-percent="new-place">20%</em>
+              <i><u data-bar="new-place" style="--vote-width: 20%"></u></i>
+            </label>
+          </fieldset>
+          <div class="prediction-actions">
+            <button class="primary-button" type="submit">落下一念</button>
+            <button class="checkin-button" id="checkin-button" type="button"><span>每日签到</span><b>+10 灵砂</b></button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand"><span class="brand-seal small" aria-hidden="true">凡<br />图</span><div><strong>凡人残图</strong><small>让每一份好创作，都能被同道寻见。</small></div></div>
+      <p>非官方爱好者项目 · 仅做公开内容索引与原址导航</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
